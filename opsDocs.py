@@ -99,14 +99,37 @@ for row_index, row in enumerate(sheet.iter_rows(min_row=2, max_row=sheet.max_row
         file_input = driver.find_element(By.NAME, field_name)
         file_input.send_keys(file_obj.name)
 
-        # Find and click the upload button
-        upload_button = driver.find_element(By.XPATH, "//button[contains(text(), 'Upload')]")
-        upload_button.click()
-        time.sleep(2)
-
+        try:
+            # Find and click the upload button
+            upload_button = driver.find_element(By.XPATH, "//button[contains(text(), 'Upload')]")
+            upload_button.click()
+            time.sleep(2)
+            # Print the uploading status
+            print(f"{driver_id} - {field_name} Uploaded")
+        except:
+            # Print the uploading status
+            print(f"{driver_id} - {field_name} Faild Uploading")
 
     # Close the webdriver
     driver.quit()
+
+    # # List all files in the folder
+    # files_in_folder = os.listdir(desktop_folder)
+
+    # # Iterate over each file in the folder
+    # for file_name in files_in_folder:
+    # # Construct the full path to the file
+    #     file_path = os.path.join(desktop_folder, file_name)
+    
+    #     # Check if the file is a regular file (not a directory)
+    #     if os.path.isfile(file_path):
+    #         try:
+    #             # Attempt to delete the file
+    #             os.remove(file_path)
+    #             print(f"Deleted file: {file_path}")
+    #         except Exception as e:
+    #             # Handle exceptions if any
+    #             print(f"Error deleting file: {file_path} - {e}")
 
 # Close the workbook after finishing
 workbook.close()
